@@ -3,30 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JuegosyMas1372 - Verifica</title>
+<title>Quantum Onyx - Oficial</title>
 <style>
 body{font-family:Arial;background:#0f0f0f;color:white;text-align:center;padding:20px}
-h1{color:#ff0000}
-button{padding:14px 22px;margin:10px;border:none;border-radius:12px;background:#ff0000;color:white;font-weight:bold;cursor:pointer;width:90%;max-width:350px;font-size:16px}
+h1{color:#a020f0}
+button{padding:14px 22px;margin:10px;border:none;border-radius:12px;background:#a020f0;color:white;font-weight:bold;cursor:pointer;width:90%;max-width:350px;font-size:16px}
 button.done{background:#00c853 !important}
 button:disabled{background:#555 !important}
-#final{display:none;margin-top:25px;padding:20px;background:#1e1e1e;border-radius:15px}
-code{background:#000;padding:12px;display:block;margin:15px 0;border-radius:8px;word-break:break-all;font-size:18px;color:#0f0}
+#final{display:none;margin-top:25px;padding:20px;background:#1e1e1e;border-radius:15px;border:2px solid #a020f0}
+code{background:#000;padding:12px;display:block;margin:15px 0;border-radius:8px;word-break:break-all;font-size:13px;color:#0f0;text-align:left}
 </style>
 </head>
 <body>
-<h1>🔥 JuegosyMas1372 🔥</h1>
-<p>Completa los 3 pasos para obtener tu código</p>
+<h1>💜 QUANTUM ONYX 💜</h1>
+<p>Completa los 3 pasos para desbloquear el Script</p>
 
 <button id="b1" onclick="go(this, 'https://www.youtube.com/@JuegosyMas1372?sub_confirmation=1', 15)">1. SUSCRIBIRSE (15s)</button>
 <button id="b2" onclick="go(this, 'https://www.youtube.com/@JuegosyMas1372', 18)">2. ACTIVAR CAMPANITA 🔔 (18s)</button>
 <button id="b3" onclick="go(this, 'https://youtu.be/2pXeR89YYto?si=4D0u3GcgRDIqIKV2', 25)">3. DAR LIKE AL VIDEO 👍 (25s)</button>
 
 <div id="final">
-<h2>✅ ¡Verificado!</h2>
-<p>Tu código es:</p>
-<code id="codigo">JUEGOS-1372-PRO</code>
-<button onclick="navigator.clipboard.writeText(document.getElementById('codigo').innerText);alert('Copiado!')">COPIAR CÓDIGO</button>
+<h2>✅ ¡Desbloqueado!</h2>
+<p>Copia tu Script:</p>
+<code id="codigo">loadstring(game:HttpGet("https://raw.githubusercontent.com/flazhy/QuantumOnyx/refs/heads/main/QuantumOnyx.lua"))()</code>
+<button onclick="navigator.clipboard.writeText(document.getElementById('codigo').innerText);alert('¡Script Copiado! Pégalo en tu executor');">📋 COPIAR SCRIPT</button>
 </div>
 
 <script>
@@ -35,7 +35,6 @@ function go(btn, url, segundos){
  window.open(url, '_blank');
  let t=segundos;
  btn.disabled=true;
- let original=btn.innerText;
  let inter=setInterval(()=>{
    btn.innerText='Esperando '+t+'s...';
    t--;

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación - JuegosyMas1372</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #FF0000 0%, #CC0000 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .task-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .task-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            border-color: #FF0000;
+            transform: translateX(5px);
+        }
+
+        .task-item.completed {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .task-item input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #FF0000;
+        }
+
+        .task-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .task-item.completed label {
+            text-decoration: line-through;
+            color: #28a745;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: #FF0000;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #CC0000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,0,0,0.3);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF0000, #ff6b6b);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .hidden-text {
+            background: #f8f9fa;
+            border: 2px dashed #FF0000;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .hidden-text code {
+            display: block;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            color: #FF0000;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+        }
+
+        .copy-btn.copied {
+            background: #6c757d;
+        }
+
+        .youtube-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .youtube-link:hover {
+            text-decoration: underline;
+        }
+
+        .countdown {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .check-icon {
+            color: #28a745;
+            font-size: 60px;
+            text-align: center;
+            display: block;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 JuegosyMas1372</h1>
+            <p>Completa las tareas para desbloquear el contenido</p>
+        </div>
+
+        <div class="content">
+            <!-- Paso 1: Tareas -->
+            <div id="step1" class="step active">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                
+                <h3 style="margin-bottom: 5px;">Sigue estos pasos:</h3>
+                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Marca cada tarea al completarla</p>
+
+                <ul class="task-list">
+                    <li class="task-item" onclick="toggleTask(this, 0)">
+                        <input type="checkbox" id="task1">
+                        <label for="task1">Seguir el canal @juegosymas1372</label>
+                    </li>
+                    <li class="task-item" onclick="toggleTask(this, 1)">
+                        <input type="checkbox" id="task2">
+                        <label for="task2">Activar la campanita 🔔</label>
+                    </li>
+                    <li class="task-item" onclick="toggleTask(this, 2)">
+                        <input type="checkbox" id="task3">
+                        <label for="task3">Comentar en el último video 💬</label>
+                    </li>
+                    <li class="task-item" onclick="toggleTask(this, 3)">
+                        <input type="checkbox" id="task4">
+                        <label for="task4">Dar like al video 👍</label>
+                    </li>
+                </ul>
+
+                <a href="https://youtube.com/@juegosymas1372" target="_blank" class="youtube-link">
+                    🔗 Ir al canal de YouTube
+                </a>
+
+                <button class="btn btn-primary" id="verifyBtn" onclick="verifyTasks()" disabled>
+                    Verificar completado (0/4)
+                </button>
+                
+                <p class="countdown" id="countdown"></p>
+            </div>
+
+            <!-- Paso 2: Verificación -->
+            <div id="step2" class="step">
+                <span class="check-icon">✅</span>
+                <h3 style="text-align: center; margin-bottom: 10px;">¡Tareas completadas!</h3>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Gracias por tu apoyo. Aquí está tu recompensa:
+                </p>
+                
+                <div class="hidden-text">
+                    <p style="margin-bottom: 10px; color: #666;">Copia este código/texto:</p>
+                    <code id="secretText">JUEGOSYMAS1372-EXCLUSIVO-2024</code>
+                    <button class="copy-btn" onclick="copyText()">
+                        📋 Copiar al portapapeles
+                    </button>
+                </div>
+
+                <button class="btn btn-success" onclick="resetAll()" style="margin-top: 20px;">
+                    Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let completedTasks = [false, false, false, false];
+        const secretCode = "JUEGOSYMAS1372-EXCLUSIVO-2024";
+
+        function toggleTask(element, index) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            completedTasks[index] = checkbox.checked;
+            
+            if (checkbox.checked) {
+                element.classList.add('completed');
+            } else {
+                element.classList.remove('completed');
+            }
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const completed = completedTasks.filter(t => t).length;
+            const total = completedTasks.length;
+            const percentage = (completed / total) * 100;
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            
+            const btn = document.getElementById('verifyBtn');
+            btn.textContent = `Verificar completado (${completed}/${total})`;
+            btn.disabled = completed !== total;
+        }
+
+        function verifyTasks() {
+            // Verificar que todas estén marcadas
+            if (!completedTasks.every(t => t)) {
+                alert('Completa todas las tareas primero');
+                return;
+            }
+
+            // Pequeña animación de carga
+            const btn = document.getElementById('verifyBtn');
+            btn.textContent = 'Verificando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+            }, 1500);
+        }
+
+        function copyText() {
+            const text = document.getElementById('secretText').textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✅ ¡Copiado!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = '📋 Copiar al portapapeles';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback para navegadores antiguos
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                alert('¡Texto copiado al portapapeles!');
+            });
+        }
+
+        function resetAll() {
+            completedTasks = [false, false, false, false];
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+            document.querySelectorAll('.task-item').forEach(item => {
+                item.classList.remove('completed');
+            });
+            
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            updateProgress();
+        }
+
+        // Prevenir que hagan clic derecho en el texto secreto (opcional)
+        document.getElementById('secretText').addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            copyText();
+        });
+    </script>
+</body>
+</html>
